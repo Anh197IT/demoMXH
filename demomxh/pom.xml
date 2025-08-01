@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    
+    <!-- Kế thừa từ Spring Boot để có các cấu hình mặc định -->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.7.5</version> <!-- Bạn có thể dùng phiên bản mới hơn -->
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    
+    <!-- Thông tin dự án của bạn -->
+    <groupId>demomxh</groupId>
+    <artifactId>demomxh</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>demomxh</name>
+    <description>Demo project for Spring Boot Social Media</description>
+    
+    <properties>
+        <java.version>11</java.version> <!-- Hoặc 1.8, 17 tùy theo JDK của bạn -->
+    </properties>
+    
+    <dependencies>
+        <!-- Dependency cho việc xây dựng ứng dụng web, bao gồm RESTful và Spring MVC -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <!-- Dependency cho việc tương tác với cơ sở dữ liệu bằng JPA (Java Persistence API) -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+
+        <!-- Dependency cho Thymeleaf, một template engine để tạo các trang HTML động -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+
+        <!-- Driver để kết nối đến cơ sở dữ liệu MySQL -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!-- Lombok giúp giảm thiểu việc viết code lặp đi lặp lại (getters, setters, constructors...) -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <!-- Dependency cho việc viết test -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- Plugin của Spring Boot để đóng gói và chạy ứng dụng -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

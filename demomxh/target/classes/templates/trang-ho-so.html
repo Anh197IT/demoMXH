@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="'Trang cá nhân của ' + ${user.username}"></title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        .post { border: 1px solid #ccc; padding: 15px; margin-bottom: 20px; border-radius: 8px; }
+        .post h2 { margin-top: 0; }
+        .post-meta { color: #555; font-size: 0.9em; }
+        a { color: #007bff; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        .follow-btn { padding: 8px 15px; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 1em; }
+        .btn-follow { background-color: #007bff; }
+        .btn-unfollow { background-color: #6c757d; }
+        .profile-stats {
+            display: flex;
+            gap: 20px; 
+            margin-bottom: 10px;
+        }
+        .profile-stats span {
+            font-size: 1.1em;
+        }
+    </style>
+</head>
+<body>
+    <h1 th:text="'Trang cá nhân của ' + ${user.username}">Tên người dùng</h1>
+    
+    <div th:if="${currentUserId != user.id}" style="margin-bottom: 20px;">
+        <div th:if="${isFollowing}">
+            <form th:action="@{/unfollow/{userId}(userId=${user.id})}" method="post">
+                <button type="submit" class="follow-btn btn-unfollow">Bỏ theo dõi</button>
+            </form>
+        </div>
+        <div th:unless="${isFollowing}">
+            <form th:action="@{/follow/{userId}(userId=${user.id})}" method="post">
+                <button type="submit" class="follow-btn btn-follow">Theo dõi</button>
+            </form>
+        </div>
+    </div>
+    <div class="profile-stats">
+        <span><strong><span th:text="${#lists.size(posts)}">0</span></strong> bài viết</span>
+        <span><strong><span th:text="${followersCount}">0</span></strong> người theo dõi</span>
+        <span><strong><span th:text="${followingCount}">0</span></strong> đang theo dõi</span>
+    </div>
+    <hr/>
+
+    <h2>Các bài viết đã đăng:</h2>
+    <div th:if="${#lists.isEmpty(posts)}">
+        <p>Người dùng này chưa đăng bài viết nào.</p>
+    </div>
+
+    <div th:each="post : ${posts}" class="post">
+        <h2 th:text="${post.title}">Tiêu đề bài viết</h2>
+        <p th:text="${post.body}">Nội dung bài viết...</p>
+        <div class="post-meta">
+            <span>Lúc: <em th:text="${#dates.format(post.createdAt, 'dd-MM-yyyy HH:mm')}">Thời gian</em></span>
+        </div>
+    </div>
+    
+    <br/>
+    <a th:href="@{/}">Quay về trang chủ</a>
+</body>
+</html>

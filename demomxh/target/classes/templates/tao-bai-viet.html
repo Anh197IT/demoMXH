@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Tạo bài viết mới</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        form { display: flex; flex-direction: column; max-width: 600px; }
+        label { margin-bottom: 5px; font-weight: bold; }
+        input, textarea, select { margin-bottom: 15px; padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 1em; }
+        .button-group {
+            display: flex;
+            gap: 10px; 
+        }
+        .btn {
+            padding: 10px 20px;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none; 
+            text-align: center;
+            font-size: 1em;
+        }
+        .btn-submit {
+            background-color: #28a745;
+        }
+        .btn-submit:hover {
+            background-color: #218838;
+        }
+        .btn-cancel {
+            background-color: #6c757d;
+        }
+        .btn-cancel:hover {
+            background-color: #5a6268;
+        }
+    </style>
+</head>
+<body>
+    <h1>Tạo bài viết mới</h1>
+    <form th:action="@{/posts}" method="post">
+        <label for="userId">Tác giả:</label>
+        <select id="userId" name="userId" required>
+            <option th:each="user : ${users}"
+                    th:value="${user.id}"
+                    th:text="${user.username}">
+                Tên người dùng
+            </option>
+        </select>
+        <label for="title">Tiêu đề:</label>
+        <input type="text" id="title" name="title" required>
+        <label for="body">Nội dung:</label>
+        <textarea id="body" name="body" rows="10" required></textarea>
+        <div class="button-group">
+            <button type="submit" class="btn btn-submit">Đăng bài</button>
+            <a th:href="@{/}" class="btn btn-cancel">Hủy</a>
+        </div>
+    </form>
+</body>
+</html>

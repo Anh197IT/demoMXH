@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Trang chủ - Mạng xã hội</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        .post { border: 1px solid #ccc; padding: 15px; margin-bottom: 20px; border-radius: 8px; }
+        .post h2 { margin-top: 0; }
+        .post-meta { color: #555; font-size: 0.9em; }
+        .create-btn { display: inline-block; padding: 10px 15px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px; margin-bottom: 20px;}
+    </style>
+</head>
+<body>
+    <h1>Danh Sách Bài Viết</h1>
+    <a th:href="@{/posts/new}" class="create-btn">Tạo bài viết mới</a>
+
+    <div th:each="post : ${posts}" class="post">
+        <h2 th:text="${post.title}">Tiêu đề bài viết</h2>
+        <p th:text="${post.body}">Nội dung bài viết...</p>
+        <div class="post-meta">
+			<span>Đăng bởi: 
+			            <a th:href="@{/users/{id}(id=${post.authorId})}">
+			                <strong th:text="${post.authorUsername}">Tên tác giả</strong>
+			            </a>
+			        </span> |
+            <span>Lúc: <em th:text="${#dates.format(post.createdAt, 'dd-MM-yyyy HH:mm')}">Thời gian</em></span>
+        </div>
+    </div>
+</body>
+</html>
